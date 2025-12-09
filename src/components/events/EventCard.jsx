@@ -17,7 +17,7 @@ const EventCard = ({ event, onClick }) => {
   };
 
   return (
-    <Card className={styles.card} onClick={() => onClick(event.id)}>
+    <Card className={`${styles.card} glass-panel`} onClick={() => onClick(event.id)}>
       <div className={styles.imageContainer}>
         {!hasError ? (
           <img

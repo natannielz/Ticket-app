@@ -1,24 +1,43 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './Checkout.module.css';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 import { ArrowLeft } from 'lucide-react';
+import { useCart } from '../hooks/useCart';
+import { events } from '../data/events';
 
 const Checkout = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { addToCart } = useCart();
   const [isProcessing, setIsProcessing] = useState(false);
+
+  // Initialize event from location state directly, avoiding useEffect state update
+  const eventId = location.state?.eventId;
+  const event = events.find(e => e.id === eventId);
+
+  useEffect(() => {
+    if (!event) {
+      navigate('/');
+    }
+  }, [event, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsProcessing(true);
+
     // Simulate API call
     setTimeout(() => {
-      // In a real app, we'd get the ticket ID from backend.
-      // For MVP, we pass a dummy ID.
-      navigate('/ticket/123456');
+      // Add to global cart context so Ticket page can verify
+      if (event) {
+        addToCart(event);
+        navigate(`/ticket/${event.id}`);
+      }
     }, 1500);
   };
+
+  if (!event) return null;
 
   return (
     <div className={`${styles.container} fade-in`}>
@@ -26,9 +45,9 @@ const Checkout = () => {
         <ArrowLeft size={20} /> Back to Home
       </button>
 
-      <div className={styles.formWrapper}>
+      <div className={`${styles.formWrapper} glass-panel`}>
         <h1 className={styles.title}>Secure Checkout</h1>
-        <p className={styles.subtitle}>Complete your purchase.</p>
+        <p className={styles.subtitle}>Purchase ticket for <strong>{event.title}</strong></p>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.section}>

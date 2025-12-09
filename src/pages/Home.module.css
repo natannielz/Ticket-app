@@ -14,7 +14,9 @@
 
 .header {
   margin-bottom: 6rem;
-  padding-top: 1rem;
+  padding: 1rem 1.5rem; /* Add padding for the glass effect container */
+  display: inline-block; /* Wrap content for glass pill effect if desired, or block for full width bar */
+  width: 100%;
 }
 
 .logo {
