@@ -1,20 +1,14 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Home.module.css';
 import EventCard from '../components/events/EventCard';
-import { events } from '../data/events';
 import HeroSection from '../components/home/HeroSection';
 import SearchFilter from '../components/home/SearchFilter';
+import ThreeScene from '../components/home/ThreeScene';
+import { useEventFilter } from '../hooks/useEventFilter';
 
 const Home = () => {
-  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
-
-  const filteredEvents = events.filter(event =>
-    event.artist.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    event.venue.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const { searchTerm, setSearchTerm, filteredEvents } = useEventFilter();
 
   const handleEventClick = (id) => {
     navigate(`/events/${id}`);
@@ -22,11 +16,11 @@ const Home = () => {
 
   return (
     <div className={styles.wrapper}>
-      {/* Abstract CSS-only Background */}
-      <div className={styles.bgPattern}></div>
+      {/* 3D Background */}
+      <ThreeScene />
 
       <div className={styles.container}>
-        <header className={`${styles.header} animate-enter`}>
+        <header className={`${styles.header} animate-enter glass-panel`}>
           <h1 className={styles.logo}>Canvas Tickets</h1>
         </header>
 

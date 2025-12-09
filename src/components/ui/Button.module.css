@@ -43,9 +43,9 @@
   background-color: #0046CC;
   /* Darker shade of electric blue */
   border-color: #0046CC;
-  transform: translateY(0);
-  /* No lift */
-  /* box-shadow removed for flat design */
+  transform: translateY(-2px);
+  /* Subtle lift */
+  box-shadow: 0 4px 12px rgba(0, 87, 255, 0.3);
 }
 
 .primary:active {

@@ -1,14 +1,16 @@
-import { useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styles from './Ticket.module.css';
 import QRCode from 'react-qr-code';
 import { events } from '../data/events';
-// Mock logic: assuming we bought the first event for demo purposes if ID doesn't match
-// Or just showing generic ticket.
+import { useCart } from '../hooks/useCart';
 
 const Ticket = () => {
   const { id } = useParams();
-  const event = events.find(e => e.id === Number(id));
+  const { cart } = useCart();
+
+  // Try to find in cart first to verify purchase, otherwise fall back to url param for demo
+  const purchasedItem = cart.find(item => item.id === Number(id));
+  const event = purchasedItem || events.find(e => e.id === Number(id));
 
   if (!event) {
     return (

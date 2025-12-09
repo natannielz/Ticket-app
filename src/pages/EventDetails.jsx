@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { events } from '../data/events';
 import styles from './EventDetails.module.css';
 import Button from '../components/ui/Button';
@@ -7,9 +8,11 @@ import { Calendar, MapPin, ArrowLeft } from 'lucide-react';
 const EventDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  if (isNaN(Number(id))) {
-    return <div className={styles.container}>Invalid Event ID</div>;
-  }
+  useEffect(() => {
+    if (isNaN(Number(id))) {
+      navigate('/');
+    }
+  }, [id, navigate]);
 
   const event = events.find(e => e.id === Number(id));
 
