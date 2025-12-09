@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styles from './Ticket.module.css';
 import QRCode from 'react-qr-code';
