@@ -1,0 +1,62 @@
+import { useRef } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import styles from './Ticket.module.css';
+import QRCode from 'react-qr-code';
+import { events } from '../data/events';
+// Mock logic: assuming we bought the first event for demo purposes if ID doesn't match
+// Or just showing generic ticket.
+
+const Ticket = () => {
+  // In real app, fetch ticket data by ID.
+  const { id } = useParams();
+  // Using mock event for display
+  const event = events[0];
+
+  const dateOptions = { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' };
+  const formattedDate = new Date(event.date).toLocaleDateString('en-US', dateOptions);
+
+  return (
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <h1 className={styles.successMessage}>You're Going!</h1>
+        <p className={styles.subtitle}>Order #{id}</p>
+      </header>
+
+      <div className={styles.ticketCard}>
+        <div className={styles.qrSection}>
+          <QRCode value={`TICKET-${id}`} size={200} />
+        </div>
+
+        <div className={styles.details}>
+          <h2 className={styles.eventTitle}>{event.title}</h2>
+          <p className={styles.artist}>{event.artist}</p>
+
+          <div className={styles.meta}>
+            <div className={styles.row}>
+              <span className={styles.label}>Date</span>
+              <span className={styles.value}>{formattedDate}</span>
+            </div>
+            <div className={styles.row}>
+              <span className={styles.label}>Venue</span>
+              <span className={styles.value}>{event.venue}</span>
+            </div>
+            <div className={styles.row}>
+              <span className={styles.label}>Ticket</span>
+              <span className={styles.value}>General Admission</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.actions}>
+        <ButtonLink to="/">Back to Home</ButtonLink>
+      </div>
+    </div>
+  );
+};
+
+const ButtonLink = ({ to, children }) => (
+  <Link to={to} className={styles.buttonLink}>{children}</Link>
+);
+
+export default Ticket;

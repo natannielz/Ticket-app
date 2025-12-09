@@ -1,0 +1,119 @@
+.wrapper {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.bgPattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60vh;
+  background: radial-gradient(circle at 80% 20%, rgba(0, 87, 255, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 20% 60%, rgba(0, 0, 0, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.header {
+  margin-bottom: 6rem;
+  padding-top: 1rem;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+
+.searchWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--color-white);
+  border: 1px solid var(--color-light-gray);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.searchWrapper:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(0, 87, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.searchIcon {
+  color: var(--color-gray);
+  margin-right: 0.75rem;
+}
+
+.searchInput {
+  width: 100%;
+  border: none;
+  font-size: 1.125rem;
+  outline: none;
+  color: var(--color-black);
+  padding: 0.5rem 0;
+  background: transparent;
+}
+
+.searchInput::placeholder {
+  color: #999;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem 2rem;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.noResults {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--color-gray);
+  padding: 4rem 0;
+}
+
+.clearSearch {
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-top: 1rem;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .header {
+    margin-bottom: 4rem;
+  }
+
+  .hero {
+    margin-bottom: 4rem;
+  }
+
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+}

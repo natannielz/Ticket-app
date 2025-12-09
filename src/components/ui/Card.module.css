@@ -1,0 +1,6 @@
+.card {
+  padding: 0;
+  /* Minimalist: No border by default unless needed, but grid items might need it? 
+     PRD says "Simple, clean grid". "No shadows". 
+     I will leave it basically empty but ready for structure. */
+}
