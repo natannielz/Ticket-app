@@ -7,10 +7,19 @@ import { events } from '../data/events';
 // Or just showing generic ticket.
 
 const Ticket = () => {
-  // In real app, fetch ticket data by ID.
   const { id } = useParams();
-  // Using mock event for display
-  const event = events[0];
+  const event = events.find(e => e.id === Number(id));
+
+  if (!event) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h1 className={styles.successMessage}>Ticket Not Found</h1>
+          <ButtonLink to="/">Return Home</ButtonLink>
+        </div>
+      </div>
+    );
+  }
 
   const dateOptions = { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' };
   const formattedDate = new Date(event.date).toLocaleDateString('en-US', dateOptions);

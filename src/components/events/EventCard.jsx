@@ -2,27 +2,36 @@ import styles from './EventCard.module.css';
 import { Calendar, MapPin } from 'lucide-react';
 import Card from '../ui/Card';
 
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 const EventCard = ({ event, onClick }) => {
+  const [hasError, setHasError] = useState(false);
+  const navigate = useNavigate();
   const dateOptions = { month: 'short', day: 'numeric', weekday: 'short' };
   const formattedDate = new Date(event.date).toLocaleDateString('en-US', dateOptions);
+
+  const handleQuickBuy = (e) => {
+    e.stopPropagation();
+    navigate('/checkout', { state: { eventId: event.id } });
+  };
 
   return (
     <Card className={styles.card} onClick={() => onClick(event.id)}>
       <div className={styles.imageContainer}>
-        <img
-          src={event.image}
-          alt={event.title}
-          className={styles.image}
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.style.display = 'none'; // Hide broken image
-            e.target.parentNode.style.backgroundColor = '#f0f0f0'; // Solid gray background
-            e.target.parentNode.style.display = 'flex';
-            e.target.parentNode.style.alignItems = 'center';
-            e.target.parentNode.style.justifyContent = 'center';
-            e.target.parentNode.innerHTML = '<span style="color:#999;font-size:0.8rem">Image Unavailable</span>';
-          }}
-        />
+        {!hasError ? (
+          <img
+            src={event.image}
+            alt={event.title}
+            className={styles.image}
+            onError={() => setHasError(true)}
+          />
+        ) : (
+          <div className={styles.fallbackImage}>
+            <span style={{ color: '#999', fontSize: '0.8rem' }}>Image Unavailable</span>
+          </div>
+        )}
+        <button className={styles.quickBuy} onClick={handleQuickBuy}>Quick Buy</button>
       </div>
       <div className={styles.content}>
         <h3 className={styles.artist}>{event.artist}</h3>

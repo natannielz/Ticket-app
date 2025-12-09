@@ -7,10 +7,14 @@ import { Calendar, MapPin, ArrowLeft } from 'lucide-react';
 const EventDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  if (isNaN(Number(id))) {
+    return <div className={styles.container}>Invalid Event ID</div>;
+  }
+
   const event = events.find(e => e.id === Number(id));
 
   if (!event) {
-    return <div className="container">Event not found</div>;
+    return <div className={styles.container}>Event not found</div>;
   }
 
   const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' };
