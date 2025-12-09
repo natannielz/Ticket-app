@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Home.module.css';
 import EventCard from '../components/events/EventCard';
 import { events } from '../data/events';
-import { Search } from 'lucide-react';
+import HeroSection from '../components/home/HeroSection';
+import SearchFilter from '../components/home/SearchFilter';
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -29,25 +30,8 @@ const Home = () => {
           <h1 className={styles.logo}>Canvas Tickets</h1>
         </header>
 
-        <section className={`${styles.hero} animate-enter delay-100`}>
-          <div className={styles.heroContent}>
-            <h2 className={styles.heroTitle}>Experience it live.</h2>
-            <p className={styles.heroSubtitle}>Simplicity in every ticket.</p>
-          </div>
-
-          <div className={styles.searchContainer}>
-            <div className={styles.searchWrapper}>
-              <Search className={styles.searchIcon} size={20} />
-              <input
-                type="text"
-                placeholder="Search artists, venues..."
-                className={styles.searchInput}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-          </div>
-        </section>
+        <HeroSection />
+        <SearchFilter searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
         <main className={styles.grid}>
           {filteredEvents.length > 0 ? (

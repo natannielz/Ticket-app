@@ -6,8 +6,8 @@
 }
 
 .card:hover {
-  transform: none;
-  /* No lift */
+  transform: translateY(-4px);
+  /* Subtle lift per Round 2 */
 }
 
 .imageContainer {
@@ -20,9 +20,7 @@
   border-radius: 4px;
 }
 
-.card:hover .imageContainer {
-  /* box-shadow removed */
-}
+/* Empty ruleset removed */
 
 .fallbackImage {
   width: 100%;
@@ -66,8 +64,7 @@
 
 .card:hover .image {
   transform: scale(1.03);
-  /* Subtle zoom */
-  /* filter: saturate(0); Optional: Uncomment for B&W effect */
+  filter: contrast(1.1);
 }
 
 .content {
