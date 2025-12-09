@@ -3,10 +3,13 @@ import { events } from '../data/events';
 import styles from './EventDetails.module.css';
 import Button from '../components/ui/Button';
 import { Calendar, MapPin, ArrowLeft } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 const EventDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { addToCart } = useCart();
+
   if (isNaN(Number(id))) {
     return <div className={styles.container}>Invalid Event ID</div>;
   }
@@ -58,8 +61,15 @@ const EventDetails = () => {
               <span className={styles.currency}>$</span>
               <span className={styles.amount}>{event.price}</span>
             </div>
-            <Button onClick={() => navigate('/checkout')} size="large" className={styles.buyButton}>
-              Get Tickets
+            <Button
+              onClick={() => {
+                addToCart(event);
+                // navigate('/checkout'); // User might want to keep shopping
+              }}
+              size="large"
+              className={styles.buyButton}
+            >
+              Add to Cart
             </Button>
           </div>
         </div>
